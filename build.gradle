@@ -12,6 +12,8 @@ ext {
     h2Version = "1.4.200"
     hamcrestVersion = "1.3"
     junitVersion = "5.7.0"
+    spannerHibernateDialectVersion = "1.3.0"
+    spannerJdbcVersion = "1.17.0"
 }
 
 dependencies {
@@ -19,7 +21,8 @@ dependencies {
     implementation "io.dropwizard:dropwizard-core:${dropwizardVersion}"
     implementation "io.dropwizard:dropwizard-migrations:${dropwizardVersion}"
     implementation "io.dropwizard:dropwizard-hibernate:${dropwizardVersion}"
-    implementation "com.h2database:h2:$h2Version"
+    implementation "com.google.cloud:google-cloud-spanner-hibernate-dialect:${spannerHibernateDialectVersion}"
+    implementation "com.google.cloud:google-cloud-spanner-jdbc:${spannerJdbcVersion}"
 
     testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"

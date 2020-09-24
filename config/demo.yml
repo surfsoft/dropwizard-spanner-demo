@@ -1,8 +1,8 @@
 database:
-  driverClass: org.h2.Driver
-  user: "sa"
+  driverClass: com.google.cloud.spanner.jdbc.JdbcDriver
+  user: ""
   password: ""
-  url: jdbc:h2:mem:test;MODE=MYSQL;DATABASE_TO_UPPER=FALSE
+  url: jdbc:cloudspanner:/projects/demo-project/instances/demo-instance/databases/demo?usePlainText=true
   properties:
     charSet: UTF-8
     maxWaitForConnection: 1s
@@ -12,7 +12,7 @@ database:
     checkConnectionWhileIdle: false
     evictionInterval: 10s
     minIdleTime: 1 minute
-    hibernate.dialect: org.hibernate.dialect.H2Dialect
+    hibernate.dialect: com.google.cloud.spanner.hibernate.SpannerDialect
     hibernate.show_sql: true
     hibernate.generate_statistics: false
     hibernate.hbm2ddl.auto: create-drop
