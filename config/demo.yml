@@ -4,7 +4,6 @@ database:
   password: ""
   url: jdbc:cloudspanner:/projects/demo-project/instances/demo-instance/databases/demo?usePlainText=true
   properties:
-    charSet: UTF-8
     maxWaitForConnection: 1s
     validationQuery: "/* MyService Health Check */ SELECT 1"
     minSize: 8
@@ -12,10 +11,12 @@ database:
     checkConnectionWhileIdle: false
     evictionInterval: 10s
     minIdleTime: 1 minute
-    hibernate.dialect: com.google.cloud.spanner.hibernate.SpannerDialect
-    hibernate.show_sql: true
-    hibernate.generate_statistics: false
-    hibernate.hbm2ddl.auto: create-drop
+
+hibernateConfiguration:
+  hibernate.show_sql: true
+  hibernate.dialect: com.google.cloud.spanner.hibernate.SpannerDialect
+  hibernate.hbm2ddl.auto: create-drop
+  hibernate.generate_statistics: false
 
 server:
   applicationConnectors:

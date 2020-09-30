@@ -7,12 +7,11 @@ import com.surfsoftconsulting.dropwizard.repository.Person;
 import com.surfsoftconsulting.dropwizard.repository.PersonDAO;
 import com.surfsoftconsulting.dropwizard.resource.PersonResource;
 import io.dropwizard.Application;
-import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
-import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.hibernate.cfg.Configuration;
 
 public class DemoApplication extends Application<DemoConfiguration> {
 
@@ -20,13 +19,7 @@ public class DemoApplication extends Application<DemoConfiguration> {
         new DemoApplication().run(args);
     }
 
-    private final HibernateBundle<DemoConfiguration> hibernateBundle =
-            new HibernateBundle<>(Person.class) {
-                @Override
-                public DataSourceFactory getDataSourceFactory(DemoConfiguration configuration) {
-                    return configuration.getDataSourceFactory();
-                }
-            };
+    private HibernateBundle<DemoConfiguration> hibernateBundle;
 
     @Override
     public String getName() {
@@ -35,20 +28,24 @@ public class DemoApplication extends Application<DemoConfiguration> {
 
     @Override
     public void initialize(Bootstrap<DemoConfiguration> bootstrap) {
-        // Enable variable substitution with environment variables
-        bootstrap.setConfigurationSourceProvider(
-                new SubstitutingSourceProvider(
-                        bootstrap.getConfigurationSourceProvider(),
-                        new EnvironmentVariableSubstitutor(false)
-                )
-        );
 
-//        bootstrap.addBundle(new MigrationsBundle<DemoConfiguration>() {
-//            @Override
-//            public DataSourceFactory getDataSourceFactory(DemoConfiguration configuration) {
-//                return configuration.getDataSourceFactory();
-//            }
-//        });
+        hibernateBundle =
+                new HibernateBundle<>(Person.class) {
+
+                    private DemoConfiguration demoConfiguration;
+
+                    @Override
+                    protected void configure(Configuration configuration) {
+                        demoConfiguration.getHibernateConfiguration().forEach(configuration::setProperty);
+                    }
+
+                    @Override
+                    public DataSourceFactory getDataSourceFactory(DemoConfiguration configuration) {
+                        this.demoConfiguration = configuration;
+                        return configuration.getDataSourceFactory();
+                    }
+                };
+
         bootstrap.addBundle(hibernateBundle);
     }
 
