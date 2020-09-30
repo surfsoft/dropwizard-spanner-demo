@@ -31,7 +31,7 @@ $ gcloud config configurations activate demo
 Finally, create the instance and database:
 
 ```
-$ gcloud spanner instances create demo-instance --config=demo-confign--description="Demo instance" --nodes=1
+$ gcloud spanner instances create demo-instance --config=demo-config --description="Demo instance" --nodes=1
 $ gcloud spanner databases create demo --instance=demo-instance
 ```
 
