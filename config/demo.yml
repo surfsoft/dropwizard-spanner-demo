@@ -2,7 +2,7 @@ database:
   driverClass: com.google.cloud.spanner.jdbc.JdbcDriver
   user: ""
   password: ""
-  url: jdbc:cloudspanner:/projects/demo-project/instances/demo-instance/databases/demo?usePlainText=true
+  url: jdbc:cloudspanner://localhost:9010/projects/demo-project/instances/demo-instance/databases/demo?usePlainText=true
   properties:
     maxWaitForConnection: 1s
     validationQuery: "/* MyService Health Check */ SELECT 1"
