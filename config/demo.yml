@@ -3,14 +3,10 @@ database:
   user: ""
   password: ""
   url: jdbc:cloudspanner://localhost:9010/projects/demo-project/instances/demo-instance/databases/demo?usePlainText=true
-  properties:
-    maxWaitForConnection: 1s
-    validationQuery: "/* MyService Health Check */ SELECT 1"
-    minSize: 8
-    maxSize: 32
-    checkConnectionWhileIdle: false
-    evictionInterval: 10s
-    minIdleTime: 1 minute
+  maxWaitForConnection: 5s
+  maxSize: 32
+  checkConnectionWhileIdle: false
+  checkConnectionOnBorrow: true
 
 hibernateConfiguration:
   hibernate.show_sql: true
