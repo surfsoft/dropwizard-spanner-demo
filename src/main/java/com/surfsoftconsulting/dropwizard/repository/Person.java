@@ -1,16 +1,8 @@
 package com.surfsoftconsulting.dropwizard.repository;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "people")
@@ -23,8 +15,7 @@ import java.util.Objects;
         })
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private UUID id;
 
     @Column(name = "fullName", nullable = false)
     private String fullName;
@@ -33,24 +24,23 @@ public class Person {
     private String jobTitle;
 
     @Column(name = "yearBorn")
-    @Min(value = 0)
-    @Max(value = 9999)
     private int yearBorn;
 
     public Person() {
     }
 
     public Person(String fullName, String jobTitle, int yearBorn) {
+        this.id = UUID.randomUUID();
         this.fullName = fullName;
         this.jobTitle = jobTitle;
         this.yearBorn = yearBorn;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

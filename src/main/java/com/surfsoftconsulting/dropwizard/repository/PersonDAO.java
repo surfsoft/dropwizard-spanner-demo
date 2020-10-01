@@ -6,13 +6,14 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class PersonDAO extends AbstractDAO<Person> {
     public PersonDAO(SessionFactory factory) {
         super(factory);
     }
 
-    public Optional<Person> findById(Long id) {
+    public Optional<Person> findById(UUID id) {
         return Optional.ofNullable(get(id));
     }
 
